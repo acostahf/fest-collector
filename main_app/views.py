@@ -28,4 +28,4 @@ def about(request):
 
 
 def festivals_index(request):
-    return render(request, '/festivals.index.html', {'festivals': festivals})
+    return render(request, 'festivals/index.html', {'festivals': festivals})
