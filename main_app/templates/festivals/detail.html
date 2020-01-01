@@ -9,6 +9,10 @@
     <p>Description: {{ festival.description }}</p>
     <p>Year: {{ festival.year }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'festivals_update' festival.id %}">Edit</a>
+    <a href="{% url 'festivals_delete' festival.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}
