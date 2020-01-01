@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Festival Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ festival.name }}</span>
+    <p>Location: {{ festival.location }}</p>
+    <p>Description: {{ festival.description }}</p>
+    <p>Year: {{ festival.year }}</p>
+  </div>
+</div>
+
+{% endblock %}
