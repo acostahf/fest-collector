@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Festival
 
 
@@ -10,16 +11,19 @@ from .models import Festival
 #         self.description = description
 #         self.year = year
 
-
-festivals = [
-    Festival('ACL', 'Austin', '3day two weekend', 2019),
-    Festival('EDC', 'Las Vegas', 'Ravers everywhere', 2018),
-    Festival('Electric Forest', 'Michigan',
-             'the forest becomes a huge rave', 2016)
-]
-
 # Create your views here.
+class FestivalCreate(CreateView):
+    model = Festival
+    fields = '__all__'
+    success_url = '/festivals/'
 
+class FestivalUpdate(UpdateView):
+    model = Festival
+    fields = '__all__'
+
+class FestivalDelete(DeleteView):
+    model = Festival
+    success_url = '/festivals/'
 
 def home(request):
     return HttpResponse('<h1>oh..Hello</h1>')
