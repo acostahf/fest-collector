@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Festival
-
+from .models import Festival, Rating
+from .forms import RatingForm
 
 # class Festival:  # Note that parens are optional if not inheriting from another class
 #     def __init__(self, name, location, description, year):
@@ -12,6 +12,14 @@ from .models import Festival
 #         self.year = year
 
 # Create your views here.
+def add_rating(request, festival_id):
+    form = RatingForm(request.POST)
+    if form.is_valid():
+        new_feeding = form.save(commit=False)
+        new_feeding.festival_id = festival_id
+        new_feeding.save()
+    return redirect('detail', festival_id=festival_id)
+
 class FestivalCreate(CreateView):
     model = Festival
     fields = '__all__'
@@ -39,4 +47,5 @@ def festivals_index(request):
 
 def festivals_detail(request, festival_id):
     festival = Festival.objects.get(id=festival_id)
-    return render(request, 'festivals/detail.html', { 'festival': festival })
+    rating_form = RatingForm()
+    return render(request, 'festivals/detail.html', { 'festival': festival, 'rating_form': rating_form })
