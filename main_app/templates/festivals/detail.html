@@ -14,5 +14,37 @@
     <a href="{% url 'festivals_delete' festival.id %}">Delete</a>
   </div>
 </div>
-
+<div class="col s6">
+  <form action="{% url 'add_rating' festival.id %}" method="post">
+    {% csrf_token %} {{ rating_form.as_p }}
+    <input type="submit" class="btn" value="Add Rating" />
+  </form>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Vibes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rating in festival.rating_set.all %}
+      <tr>
+        <td>{{rating.date}}</td>
+        <td>{{rating.get_vibe_display}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<script>
+  var dateEl = document.getElementById("id_date");
+  M.Datepicker.init(dateEl, {
+    format: "yyyy-mm-dd",
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+  var selectEl = document.getElementById("id_vibe");
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}
